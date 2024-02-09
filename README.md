@@ -1,0 +1,2 @@
+# pwsh profile
+yeah
