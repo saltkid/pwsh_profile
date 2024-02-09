@@ -1,2 +1,5 @@
 # pwsh profile
-yeah
+**Location:**
+```
+$env:userprofile\Documents\PowerShell\*
+```
