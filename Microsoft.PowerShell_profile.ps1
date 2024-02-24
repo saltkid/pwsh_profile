@@ -73,4 +73,4 @@ function Invoke-SearchGitRepos
     Add-Type -AssemblyName System.Windows.Forms
     [System.Windows.Forms.SendKeys]::SendWait("{Enter}")
 }
-Set-PSReadLineKeyHandler -Key "Ctrl+d" -ScriptBlock { Invoke-SearchGitRepos }
+Set-PSReadLineKeyHandler -Key "Ctrl+f" -ScriptBlock { Invoke-SearchGitRepos }
