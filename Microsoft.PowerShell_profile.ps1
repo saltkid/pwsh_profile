@@ -10,30 +10,50 @@ Function ffs
 }
 
 ### ensure installed
+Write-Host "Installing Chocolatey..."
 if (-not (Get-Command 'choco' -ErrorAction SilentlyContinue))
 {
     Write-Host "Chocolatey not installed, installing..."
     # from official chocolatey docs
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iwr https://community.chocolatey.org/install.ps1 -UseBasicParsing | iex
     Write-Host "Chocolatey installed"
+} else
+{
+    Write-Host "Chocolatey already installed"
 }
 
-$ensure_installed_packages = @(
-    "yt-dlp", "mpv", "git", "ffmpeg"
-    "fzf". "grep", "ripgrep", "sed", "fd",
-    "lazygit", "neovim", "oh-my-posh")
+# key:val = package_name:command
+Write-Host "Installing packages..."
+$ensure_installed_packages = @{
+    "yt-dlp" = "yt-dlp";
+    "mpv" = "mpv";
+    "git" = "git";
+    "ffmpeg" = "ffmpeg";
+    "fzf" = "fzf";
+    "grep" = "grep";
+    "ripgrep" = "rg";
+    "sed" = "sed";
+    "fd" = "fd";
+    "lazygit" = "lazygit";
+    "neovim" = "nvim";
+    "oh-my-posh" = "oh-my-posh";
+}
 
-foreach ($package in $ensure_installed_packages)
-{
-    if (-not (Get-Command $package -ErrorAction SilentlyContinue))
+$ensure_installed_packages.GetEnumerator() | ForEach-Object {
+    if (-not (Get-Command $_.Value -ErrorAction SilentlyContinue))
     {
-        Write-Host "$package not installed, installing..."
-        choco install $package
-        Write-Host "$package installed"
+        Write-Host "'$($_.Key)' not installed, installing..."
+        choco install $($_.Key) -y
+        Write-Host "'$($_.Key)' installed"
+    } else
+    {
+        Write-Host "'$($_.Key)' already installed"
     }
 }
 
+### setting theme
 $themeName = "bubblesextra"
+Write-Host "Setting $themeName as theme..."
 oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/$themeName.omp.json" | Invoke-Expression
 
 function Invoke-SearchGitRepos
