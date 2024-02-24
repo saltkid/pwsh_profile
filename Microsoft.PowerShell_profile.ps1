@@ -1,4 +1,5 @@
 New-Alias -Name ff -Value firefox
+New-Alias -Name lg -Value lazygit
 
 Function ffs
 {
