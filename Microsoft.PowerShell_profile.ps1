@@ -15,7 +15,7 @@ if (-not (Get-Command 'choco' -ErrorAction SilentlyContinue))
 {
     Write-Host "Chocolatey not installed, installing..."
     # from official chocolatey docs
-    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iwr https://community.chocolatey.org/install.ps1 -UseBasicParsing | iex
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-WebRequest https://community.chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression
     Write-Host "Chocolatey installed"
 } else
 {
