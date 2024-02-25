@@ -33,7 +33,7 @@ $ensure_installed_packages = @{
     "grep" = "grep";
     "ripgrep" = "rg";
     "sed" = "sed";
-    "fd" = "fd";
+    "es" = "es";
     "lazygit" = "lazygit";
     "neovim" = "nvim";
     "oh-my-posh" = "oh-my-posh";
@@ -56,16 +56,10 @@ $themeName = "bubblesextra"
 Write-Host "Setting $themeName as theme..."
 oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/$themeName.omp.json" | Invoke-Expression
 
+### custom functions and keybinds
 function Invoke-SearchGitRepos
 {
-    $searchPaths = @(
-        "$env:userprofile/projects",
-        "$env:userprofile/work",
-        "$env:localappdata/nvim",
-        "$env:userprofile/documents/powershell",
-        "$env:userprofile/music")
-
-    $selected = $(fd -u -i -t d -F '.git' $searchPaths | sed 's/\\.git//' | fzf)
+    $selected = $(es -w .git /a[DH] | sed 's/\\.git//' | fzf)
     if ($selected)
     {
         Set-Location $selected
