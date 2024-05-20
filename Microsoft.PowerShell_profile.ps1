@@ -1,6 +1,7 @@
 ### aliases
 New-Alias -Name ff -Value firefox
 New-Alias -Name lg -Value lazygit
+New-Alias -Name vim -Value nvim
 
 ### custom commands
 Function ffs
@@ -57,6 +58,7 @@ Write-Host "Setting $themeName as theme..."
 oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/$themeName.omp.json" | Invoke-Expression
 
 ### custom functions and keybinds
+# quick cd to searched git repo
 function Invoke-SearchGitRepos
 {
     $selected = $(es -w .git /a[DH] | sed 's/\\.git//' | fzf)
