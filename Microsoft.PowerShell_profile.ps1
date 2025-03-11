@@ -13,10 +13,6 @@ function ffs
 function v.
 { nvim . 
 }
-### setting theme
-$themeName = "bubblesextra"
-Write-Host "Setting $themeName as theme..."
-oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/$themeName.omp.json" | Invoke-Expression
 function Invoke-SearchGitRepos
 {
     $selected = $(es -w .git /a[DH] | sed 's/\\.git//' | fzf)
@@ -34,3 +30,7 @@ function Invoke-SearchGitRepos
 Set-PSReadLineKeyHandler -Key "Ctrl+f" -ScriptBlock { Invoke-SearchGitRepos }
 # }}}
 
+# setting theme
+$themeName = "saltkid"
+Write-Host "Setting $themeName as theme..."
+oh-my-posh init pwsh --config ~/documents/Powershell/themes/$themeName.omp.yml | Invoke-Expression

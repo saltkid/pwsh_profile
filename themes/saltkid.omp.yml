@@ -1,0 +1,127 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+version: 3
+patch_pwsh_bleed: true
+final_space: true
+upgrade:
+  source: cdn
+  interval: 168h
+  auto: false
+  notice: true
+
+transient_prompt:
+  template: "❯ "
+  foreground: "#5fd700"
+  foreground_templates:
+    - "{{ if .Segments.Status.Error }}#ff0000{{ end }}"
+  background: transparent
+
+blocks:
+- type: prompt
+  alignment: left
+  segments:
+  - template: ╭─
+    foreground: "#444444"
+    type: text
+    style: plain
+  - leading_diamond: 
+    trailing_diamond: 
+    foreground: "#0c0c0c"
+    background: "#cccccc"
+    type: os
+    style: diamond
+  - template: " {{ if eq .PWD \"~\" }}\uf015{{else}}\uf115{{end}} "
+    foreground: "#cccccc"
+    background: "#0000ff"
+    type: path
+    style: diamond
+  - properties:
+      style: folder
+    trailing_diamond: 
+    foreground: "#cccccc"
+    background: "#0000ff"
+    type: path
+    style: diamond
+
+- type: prompt
+  alignment: right
+  segments:
+  - properties:
+      always_enabled: true
+      status_template: "{{ if eq .Code 0 }}✔{{ else }}{{ .Code }} ✘{{ end }}"
+    leading_diamond: 
+    trailing_diamond: 
+    foreground: "#13a10e"
+    background: "#0c0c0c"
+    type: status
+    style: diamond
+  - template: " {{ .FormattedMs }} \uf252 "
+    trailing_diamond: 
+    foreground: "#0c0c0c"
+    background: "#c19c00"
+    type: executiontime
+    style: diamond
+  - template: " {{ .RepoName }}.\uf1d3 "
+    trailing_diamond: 
+    foreground: "#f9f1a5"
+    background: "#444444"
+    type: git
+    style: diamond
+  - template: " {{ .Venv }} \ue73c "
+    trailing_diamond: 
+    foreground: "#cccccc"
+    background: "#0037da"
+    type: python
+    style: diamond
+  - template: ─╮
+    foreground: "#444444"
+    type: git
+    style: plain
+
+- type: prompt
+  alignment: left
+  segments:
+  - template: ╰─
+    foreground: "#444444"
+    type: text
+    style: plain
+  - template: 
+    foreground: "#0c0c0c"
+    type: text
+    style: plain
+  - template: " \uf0e7"
+    foreground: "#c19c00"
+    background: "#0c0c0c"
+    type: root
+    style: plain
+  - trailing_diamond: 
+    template: " {{ .UserName }} "
+    foreground: "#c19c00"
+    background: "#0c0c0c"
+    type: text
+    style: diamond
+  - template: ❯
+    foreground: "#5fd700"
+    type: status
+    style: plain
+    foreground_templates:
+      - "{{ if .Error }}#ff0000{{ end }}"
+    properties:
+      always_enabled: true
+  newline: true
+
+- type: rprompt
+  alignment: right
+  segments:
+  - leading_diamond: 
+    trailing_diamond: 
+    template: " {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf0c7 {{ .StashCount }}{{ end }} "
+    foreground: "#0c0c0c"
+    background: "#13a10e"
+    type: git
+    style: diamond
+    background_templates:
+    - "{{ if .Staging.Changed }}#c19c00{{ end }}"
+  - template: ─╯
+    foreground: "#444444"
+    type: git
+    style: plain
