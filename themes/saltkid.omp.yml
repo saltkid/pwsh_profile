@@ -94,7 +94,7 @@ blocks:
     type: root
     style: plain
   - trailing_diamond: 
-    template: " {{ .UserName }} "
+    template: " saltkid "
     foreground: "#c19c00"
     background: "#0c0c0c"
     type: text
